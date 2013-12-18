@@ -3,7 +3,8 @@
 /**
  * Base Controller
  *
- * @package    Cform
+ * @package    app
+ * @subpackage cform
  * @author     ksakamoto
  */
 
