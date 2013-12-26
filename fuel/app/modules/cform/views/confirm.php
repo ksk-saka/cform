@@ -12,18 +12,19 @@
 <form id="form" action="<?php echo Uri::base(); ?>confirm" method="post">
 <p>
 	名前：<br>
-	<?php echo $input['name']; ?>
-	<input type="hidden" name="name" value="<?php echo $input['name']; ?>">
+	<?php echo \Input::post('name'); ?>
+	<input type="hidden" name="name" value="<?php echo \Input::post('name'); ?>">
 </p>
 <p>
 	メールアドレス：<br>
-	<?php echo $input['email']; ?>
-	<input type="hidden" name="email" value="<?php echo $input['email']; ?>">
+	<?php echo \Input::post('email'); ?>
+	<input type="hidden" name="email" value="<?php echo \Input::post('email'); ?>">
+	<br>※とりあえず入力したメールアドレスに送信します。
 </p>
 <p>
 	内容：<br>
-	<?php echo $input['memo']; ?>
-	<input type="hidden" name="memo" value="<?php echo $input['memo']; ?>">
+	<?php echo \Input::post('memo'); ?>
+	<input type="hidden" name="memo" value="<?php echo \Input::post('memo'); ?>">
 </p>
 <div>
 	<input type="submit" name="submit" value="送信" onclick="toSend();">
