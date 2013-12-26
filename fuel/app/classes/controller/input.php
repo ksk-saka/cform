@@ -3,6 +3,7 @@
 /**
  * Input Controller
  *
+ * @package    app
  * @author     ksakamoto
  */
 
