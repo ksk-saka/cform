@@ -37,6 +37,6 @@ class Controller_Confirm extends Controller_Base
 			\Debug::dump('メール送信に失敗しました。');exit;
 		}
 		
-		\Response::redirect('/input');
+		\Response::redirect('complete');
 	}
 }
