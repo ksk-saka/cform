@@ -1,0 +1,1 @@
+<a href="<?php echo Uri::base(); ?>input">Webからのお問い合わせ</a>
