@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Model Form
+ * Form Model
  *
  * @package    app
  * @subpackage cform
@@ -10,7 +10,13 @@
 
 namespace Cform;
 
-class Model_Form extends Orm\Model
+class Model_Form extends Model_Base
 {
-	
+	protected static $_belongs_to = array('users' => array(
+        'model_to' => '\Cform\Model_User',
+		'key_from' => 'user_id',
+        'key_to' => 'id',
+        'cascade_save' => true,
+        'cascade_delete' => false,
+    ));
 }

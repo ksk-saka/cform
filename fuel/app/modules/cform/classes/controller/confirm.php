@@ -28,14 +28,34 @@ class Controller_Confirm extends Controller_Base
 	
 	public function post_send()
 	{
-		static::$params['to'] = array(\Input::post('email') => \Input::post('name'));
-		static::$params['body'] = \Input::post('memo');
+		$users = Model_User::users(array(
+			'where' => array(
+				array('email', \Input::post('email')),
+			),
+			'related' => array(
+				'forms',
+			),
+		));
 		
-		$result = Mail_Sender::forge(static::$params)->send();
-		if ( ! $result)
+		foreach ($users as $user)
 		{
-			\Debug::dump('メール送信に失敗しました。');exit;
+			$user->name = \Input::post('name');
+			$user->email = \Input::post('email');
+			$user->forms[] = Model_Form::forge(array('memo' => \Input::post('memo')));
+			if ( ! $user->save())
+			{
+				\Session::set_flash('error', 'Could not save article.');
+			}
 		}
+		
+//		static::$params['to'] = array(\Input::post('email') => \Input::post('name'));
+//		static::$params['body'] = \Input::post('memo');
+//		
+//		$result = Mail_Sender::forge(static::$params)->send();
+//		if ( ! $result)
+//		{
+//			\Debug::dump('メール送信に失敗しました。');exit;
+//		}
 		
 		\Response::redirect('complete');
 	}
