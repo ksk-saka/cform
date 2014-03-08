@@ -8,8 +8,10 @@
 <body>
     <h1>先輩コンタクトフォーム</h1>
     <div id="wrapper">
+		<?php echo \Session::get_flash('success'); ?>
+		<?php echo \Session::get_flash('error'); ?>
         <?php echo $content; ?>
-        <hr />
+        <hr>
         <p class="footer">
             Powered by <?php echo Html::anchor('http://fuelphp.com/', 'FuelPHP'); ?>
         </p>
