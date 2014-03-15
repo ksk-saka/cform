@@ -19,27 +19,28 @@ class Mail_Sender
 		return new static($params);
 	}
 	
-	public function __construct(array $params = array())
+	public function __construct($params)
 	{
 		static::$mail = \Email::forge();
 		$this->set($params);
 	}
 	
-	private static $list = array (
-		'from',
-		'to',
-		'cc',
-		'bcc',
-		'subject',
-		'body',
+	private static $defaults = array (
+		'from' => 'no_relpy@sample.com',
+		'to' => 'shimax.no083@gmail.com',
+		'cc' => '',
+		'bcc' => '',
+		'subject' => 'お問い合わせ内容',
+		'body' => '',
 	);
 	
 	public function set(array $params = array())
 	{	
+		$params = array_merge(static::$defaults, $params);
 		foreach ($params as $key => $value)
 		{
-			if (in_array($key, static::$list))
-			{					
+			if (method_exists(static::$mail, $key) and ! empty($value))
+			{
 				static::$mail->{$key}($value);
 			}
 		}

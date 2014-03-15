@@ -19,7 +19,6 @@
 	メールアドレス：<br>
 	<?php echo \Input::post('email'); ?>
 	<input type="hidden" name="email" value="<?php echo \Input::post('email'); ?>">
-	<br>※とりあえず入力したメールアドレスに送信します。
 </p>
 <p>
 	内容：<br>

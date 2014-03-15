@@ -11,15 +11,7 @@
 namespace Cform;
 
 class Controller_Confirm extends Controller_Base
-{
-	public static $params = array (
-		'from' => 'test1@sample.com', // todo: array('test1@sample.com' => 'test'),
-		'to' => '',
-		'cc' => 'test2@sample.com',
-		'subject' => 'お問い合わせ内容',
-		'body' => '',
-	);
-	
+{	
 	public function post_index()
 	{
 		$this->template->title = '確認';
@@ -42,20 +34,14 @@ class Controller_Confirm extends Controller_Base
 			$user->name = \Input::post('name');
 			$user->email = \Input::post('email');
 			$user->forms[] = Model_Form::forge(array('memo' => \Input::post('memo')));
-			if ( ! $user->save())
+			
+			$params = array('body' => \Input::post('name')."\r\n".\Input::post('memo'));
+			$mail = Mail_Sender::forge($params);
+			if ( ! $user->save() or  ! $mail->send())
 			{
-				\Session::set_flash('error', 'Could not save article.');
+				\Session::set_flash('error', 'メール送信に失敗しました。');
 			}
 		}
-		
-//		static::$params['to'] = array(\Input::post('email') => \Input::post('name'));
-//		static::$params['body'] = \Input::post('memo');
-//		
-//		$result = Mail_Sender::forge(static::$params)->send();
-//		if ( ! $result)
-//		{
-//			\Debug::dump('メール送信に失敗しました。');exit;
-//		}
 		
 		\Response::redirect('complete');
 	}
