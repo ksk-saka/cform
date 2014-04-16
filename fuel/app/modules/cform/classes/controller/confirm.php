@@ -14,8 +14,18 @@ class Controller_Confirm extends Controller_Base
 {	
 	public function post_index()
 	{
-		$this->template->title = '確認';
-		$this->template->content = \View::forge('confirm');
+		$val = Model_User::validate();
+		if ( ! $val->run())
+		{	
+			\Session::set_flash('error', $val->show_errors());
+			$this->template->title = '入力';
+			$this->template->content = \View::forge('input');
+		}
+		else
+		{
+			$this->template->title = '確認';
+			$this->template->content = \View::forge('confirm');
+		}
 	}
 	
 	public function post_send()

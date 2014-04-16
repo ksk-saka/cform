@@ -20,6 +20,15 @@ class Model_User extends Model_Base
 		'cascade_delete' => true,
 	));
 	
+	public static function validate()
+    {
+		$val = \Validation::forge();
+		$val->add_field('name', '名前', 'trim|required|max_length[50]');
+		$val->add_field('email', 'メールアドレス', 'trim|required|max_length[100]|valid_email');
+		$val->add_field('memo', '内容', 'trim|required|max_length[65535]');
+		return $val;
+	}	
+	
 	public static function users(array $options = array())
 	{
 		$users = self::find('all', $options);
